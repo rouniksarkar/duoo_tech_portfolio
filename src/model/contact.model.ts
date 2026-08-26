@@ -26,17 +26,13 @@ const contactSchema = new mongoose.Schema<IContact>({
     },
     projectName:{
         type:String,
-        enum:['gymify','cafefy','clothify','salonify'],
+        enum:['gym management','cafe/restaurent management','e commerce','salon/parlour managemnt','other'],
         trim:true,
         requird:true
     },
     message:{
         type:String,
         default:""
-    },
-    createdAt:{
-        type:Date,
-        default:Date.now
     }
 },{
     timestamps:true
