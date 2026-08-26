@@ -26,7 +26,6 @@ const contactSchema = new mongoose.Schema<IContact>({
     },
     projectName:{
         type:String,
-        enum:['gym management','cafe/restaurent management','e commerce','salon/parlour managemnt','other'],
         trim:true,
         requird:true
     },

@@ -25,5 +25,21 @@ export async function POST(request:NextRequest){
     } catch (error) {
         return NextResponse.json({message:"Failed to creact contact",error},{status:500})
     }
+}
 
+export async function GET(request:NextRequest){
+
+    try {
+        await dbConnect();
+
+        const allContacts = await Contact.find();
+
+        if(!allContacts || allContacts.length===0){
+            return NextResponse.json({message:"No one contact us!"},{status:404})
+        }
+
+        return NextResponse.json({message:"Fetch all contact quaries!"},{status:201})
+    } catch (error) {
+        return NextResponse.json({message:"Error on fetching contacts!",error},{status:500})
+    }
 }

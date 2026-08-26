@@ -36,7 +36,15 @@ const contactUs = () => {
     }
   return (
     <div>
-
+        <h1>Contact us</h1>
+        <form onClick={handleSubmit}>
+            <input type="text" name='name' value={formData.name} onChange={handleChange} placeholder='Enter you name'/>
+            <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Enter you email'/>
+            <input type="text" name='phoneNo' value={formData.phoneNo} onChange={handleChange} placeholder='Enter you phone number'/>
+            <input type="text" name='projectName' value={formData.projectName} onChange={handleChange} placeholder='Enter your project name such e-commerce, mangement etc'/>
+            <input type="text" name='message' value={formData.message} onChange={handleChange} placeholder='Enter you message'/>
+            <button type='submit'>Submit</button>
+        </form>
     </div>
   )
 }
