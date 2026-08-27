@@ -39,13 +39,13 @@ export async function GET(request:NextRequest){
             return NextResponse.json({message:"You are not admin!"},{status:501})
         }
 
-        const allContacts = await Contact.find();
+        const allContact = await Contact.find();
 
-        if(!allContacts || allContacts.length===0){
+        if(!allContact || allContact.length===0){
             return NextResponse.json({message:"No one contact us!"},{status:404})
         }
 
-        return NextResponse.json({message:"Fetch all contact quaries!",contact:allContacts},{status:201})
+        return NextResponse.json({message:"Fetch all contact quaries!",contact:allContact},{status:201})
     } catch (error) {
         return NextResponse.json({message:"Error on fetching contacts!",error},{status:500})
     }

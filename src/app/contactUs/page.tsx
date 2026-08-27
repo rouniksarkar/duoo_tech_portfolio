@@ -1,8 +1,10 @@
+'use client'
+
 import axios from 'axios';
 import React,{useState} from 'react'
 import { useRouter } from 'next/navigation';
 
-const contactUs = () => {
+const ContactUs = () => {
 
     const router = useRouter();
 
@@ -37,7 +39,7 @@ const contactUs = () => {
   return (
     <div>
         <h1>Contact us</h1>
-        <form onClick={handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <input type="text" name='name' value={formData.name} onChange={handleChange} placeholder='Enter you name'/>
             <input type="text" name='email' value={formData.email} onChange={handleChange} placeholder='Enter you email'/>
             <input type="text" name='phoneNo' value={formData.phoneNo} onChange={handleChange} placeholder='Enter you phone number'/>
@@ -49,4 +51,4 @@ const contactUs = () => {
   )
 }
 
-export default contactUs
+export default ContactUs
