@@ -34,6 +34,7 @@ const Contact = () => {
                         <p>{e.phoneNo}</p>
                         <p>{e.projectName}</p>
                         <p>{e.message}</p>
+                        <p>Created on: {new Date(e.createdAt).toLocaleString()}</p>
                     </div>
                 ))}
                 
