@@ -39,6 +39,7 @@ const ContactInfo = () => {
                 <p><strong>Phone:</strong> {contact.phoneNo}</p>
                 <p><strong>Project:</strong> {contact.projectName}</p>
                 <p><strong>Message:</strong> {contact.message}</p>
+                <p>Created on: {new Date(contact.createdAt).toLocaleString()}</p>
             </div>
         </div>
     );
