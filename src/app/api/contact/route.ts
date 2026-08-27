@@ -1,5 +1,6 @@
 import dbConnect from '@/lib/dbconfig'
 import Contact from '@/model/contact.model';
+import { getServerSession } from 'next-auth';
 import {NextRequest, NextResponse} from 'next/server'
 
 export async function POST(request:NextRequest){
@@ -32,13 +33,19 @@ export async function GET(request:NextRequest){
     try {
         await dbConnect();
 
+        const sessions = await getServerSession();
+
+        if(!sessions){
+            return NextResponse.json({message:"You are not admin!"},{status:501})
+        }
+
         const allContacts = await Contact.find();
 
         if(!allContacts || allContacts.length===0){
             return NextResponse.json({message:"No one contact us!"},{status:404})
         }
 
-        return NextResponse.json({message:"Fetch all contact quaries!"},{status:201})
+        return NextResponse.json({message:"Fetch all contact quaries!",contact:allContacts},{status:201})
     } catch (error) {
         return NextResponse.json({message:"Error on fetching contacts!",error},{status:500})
     }
