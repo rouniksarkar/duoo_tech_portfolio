@@ -1,26 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
+import { fadeUp } from "@/lib/motion";
 
 function HeroSection() {
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.12,
-      },
-    },
-  };
-
-  const fadeUp = {
-    hidden: { opacity: 0, y: 32 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1.7, ease: [0.22, 1, 0.36, 1] as const },
-    },
-  };
-
   const AVATARS = [
     { initials: "AK", color: "bg-[#F2A65A]" },
     { initials: "JM", color: "bg-[#6C8EFF]" },
