@@ -6,7 +6,8 @@ interface IContact{
     email: string,
     projectName: string,
     message: string,
-    createdAt: Date
+    status:string,
+    createdAt: Date,
 }
 
 const contactSchema = new mongoose.Schema<IContact>({
@@ -32,6 +33,11 @@ const contactSchema = new mongoose.Schema<IContact>({
     message:{
         type:String,
         default:""
+    },
+    status:{
+        type:String,
+        enum:['pending','accept','reject'],
+        default:"pending"
     }
 },{
     timestamps:true
