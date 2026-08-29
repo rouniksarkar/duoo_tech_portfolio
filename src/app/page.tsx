@@ -1,5 +1,7 @@
 "use client";
 
+import ContactUs from "@/components/ContactUs";
+import FeaturedWork from "@/components/FeaturedWork";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import Hookr from "@/components/Hookr";
@@ -19,6 +21,8 @@ const page = () => {
           <SolveProblem />
           <Hookr />
           <Technologies />
+          <FeaturedWork />
+          <ContactUs />
         </div>
       </div>
     </>
