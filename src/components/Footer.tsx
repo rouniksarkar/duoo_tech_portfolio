@@ -83,7 +83,7 @@ function Footer() {
               </section>
             </section>
             <p className="text-lg text-white/50">
-              © copyright DuooTech {new Date().getFullYear()}. All rights
+              © Copyright DuooTech {new Date().getFullYear()}. All rights
               reserved.
             </p>
           </section>
