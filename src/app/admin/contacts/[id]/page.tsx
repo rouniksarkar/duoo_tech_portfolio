@@ -26,6 +26,22 @@ const ContactInfo = () => {
         fetchData();
     }, [id]);
 
+    const handleState = async (action : "accept" | "reject") => {
+        
+        try {
+            const res = await axios.patch(`/api/contact/${id}`,
+                {status:action}
+            );
+            console.log(res.data);
+
+            alert(`Successfully completed: ${action}`);
+
+        } catch (error:any) {
+             alert(error.message || "Something went wrong");
+        }
+
+    }
+
     if (loading) return <div>Loading...</div>;
     if (!contact) return <div>Contact not found.</div>;
 
@@ -39,8 +55,12 @@ const ContactInfo = () => {
                 <p><strong>Phone:</strong> {contact.phoneNo}</p>
                 <p><strong>Project:</strong> {contact.projectName}</p>
                 <p><strong>Message:</strong> {contact.message}</p>
+                <p><strong>Current Status:</strong> {contact.status}</p>
                 <p>Created on: {new Date(contact.createdAt).toLocaleString()}</p>
             </div>
+
+            <button onClick={()=>handleState("accept")}>Accept</button>
+            <button onClick={()=>handleState("reject")}>Reject</button>
         </div>
     );
 };

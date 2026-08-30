@@ -47,3 +47,40 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
     }
 
 }
+
+export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+
+    try {
+        const { id } = await params;
+
+        const {status} = await req.json();
+
+        if(!["accept","reject"].includes(status)){
+            return NextResponse.json({message:"Invalid status value!"},{status:404});
+        }
+
+        await dbConnect()
+
+        const session = await getServerSession();
+
+        if(!session){
+            return NextResponse.json({message:"Unauthorized!"},{status:404});
+        }
+
+        const contact = await Contact.findByIdAndUpdate(
+            id,
+            {status:"accept"},
+            {new:true}
+        );
+
+        if(!contact){
+            return NextResponse.json({message:"No contact on this id!"},{status:400});
+        }
+
+        return NextResponse.json({message:"Contact accepted!"},{status:201});
+
+    } catch (error:any) {
+        return NextResponse.json({message:"Failed to accept contact",error: error || error.message},{status:500});
+    }
+
+}

@@ -36,16 +36,32 @@ export async function GET(request:NextRequest){
         const sessions = await getServerSession();
 
         if(!sessions){
-            return NextResponse.json({message:"You are not admin!"},{status:501})
+            return NextResponse.json({message:"You are not admin!"},{status:404})
         }
 
-        const allContact = await Contact.find();
+
+        const [allContact, totalContact, pendingContact, acceptedContact] = await Promise.all([
+            Contact.find().sort({ createdAt: -1 }),
+            Contact.countDocuments({}),
+            Contact.countDocuments({ status: "pending" }),
+            Contact.countDocuments({ status: "accept" })
+        ])
 
         if(!allContact || allContact.length===0){
-            return NextResponse.json({message:"No one contact us!"},{status:404})
+            return NextResponse.json({message:"No one contact us!",
+                allContact: [], 
+                totalContact: 0, 
+                pendingContact: 0, 
+                acceptedContact: 0
+            },{status:404})
         }
 
-        return NextResponse.json({message:"Fetch all contact quaries!",contact:allContact},{status:201})
+        return NextResponse.json({message:"Fetch all contact quaries!",
+            contact:allContact,
+            totalContact,
+            pendingContact,
+            acceptedContact
+        },{status:201})
     } catch (error) {
         return NextResponse.json({message:"Error on fetching contacts!",error},{status:500})
     }
