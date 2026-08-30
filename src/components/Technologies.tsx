@@ -32,7 +32,7 @@ function Technologies() {
 
   return (
     <>
-      <div className="mt-20 px-10">
+      <div className="pt-20 px-10" id="technologies">
         <section className="space-y-2">
           <Heading2>
             <span className="text-sky-500">Technology</span> Follows The Problem

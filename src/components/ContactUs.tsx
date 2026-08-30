@@ -1,25 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import WorldMap from "./ui/world-map";
 import { motion } from "framer-motion";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { cn } from "@/lib/utils";
+import axios from "axios";
 
 function ContactUs() {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phoneNo: "",
+    projectName: "Portfolio",
+    message: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [res, setRes] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Form submitted");
+    if (
+      !formData?.name ||
+      !formData?.phoneNo ||
+      !formData?.email ||
+      !formData?.message
+    ) {
+      setRes("INVALID");
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const res = await axios.post("/api/contact", formData);
+      setRes("SUCCESS");
+    } catch (error) {
+      setRes("ERROR");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <>
-      <div className="mt-20 px-10">
+      <div className="pt-20 px-10" id="contact-us">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
           <div className="">
             <div>
               <div className="">
                 <div className="max-w-7xl mx-auto text-center">
-                  <p className="font-bold text-xl md:text-4xl dark:text-white text-black">
+                  <p className="font-bold text-3xl md:text-4xl dark:text-white text-black">
                     Contact{" "}
                     <span className="text-sky-500">
                       {"DuooTech".split("").map((word, idx) => (
@@ -79,33 +108,77 @@ function ContactUs() {
               </div>
             </div>
           </div>
-          <div className="flex justify-center items-center ">
-            <div className="xl:px-10 xl:py-10 max-w-lg rounded-2xl">
-              <h2 className="text-xl font-bold text-neutral-800 dark:text-neutral-200">
-                Welcome to Aceternity
+          <div className="flex justify-center items-center">
+            <div className="max-w-lg lg:bg-white/5 lg:py-10 rounded-2xl lg:px-10">
+              <h2 className="text-3xl text-center font-bold text-neutral-800 dark:text-neutral-200">
+                Welcome to DuooTech
               </h2>
-              <p className="mt-2 max-w-sm text-sm text-neutral-600 dark:text-neutral-300">
-                Login to aceternity if you can because we don&apos;t have a
-                login flow yet
+              <p className="mt-2 text-lg text-center  text-white/50">
+                Send your query to us and we will contact you as soon as
+                possible
               </p>
 
-              <form className="my-8" onSubmit={handleSubmit}>
-                <div className="mb-4 flex flex-col space-y-2 md:flex-row md:space-y-0 md:space-x-2">
-                  <LabelInputContainer>
-                    <Label htmlFor="firstname">First name</Label>
-                    <Input id="firstname" placeholder="Tyler" type="text" />
-                  </LabelInputContainer>
-                  <LabelInputContainer>
-                    <Label htmlFor="lastname">Last name</Label>
-                    <Input id="lastname" placeholder="Durden" type="text" />
-                  </LabelInputContainer>
+              {res === "ERROR" ? (
+                <>
+                  <div className="mt-5 text-lg font-medium font-sans tracking-normal px-5 py-3 bg-red-500/20 text-red-500 rounded-lg">
+                    Sorry, something went wrong from our side. Please try again
+                    some time.
+                  </div>
+                </>
+              ) : res === "SUCCESS" ? (
+                <div className="mt-5 text-lg font-medium font-sans tracking-normal px-5 py-3 bg-green-500/20 text-green-500 rounded-lg">
+                  Thank you for contacting us. We will contact you as soon as
+                  possible.
                 </div>
+              ) : res === "INVALID" ? (
+                <div className="mt-5 text-lg font-medium font-sans tracking-normal px-5 py-3 bg-red-500/20 text-red-500 rounded-lg">
+                  All fields are required
+                </div>
+              ) : (
+                ""
+              )}
+
+              <form className="my-8" onSubmit={handleSubmit}>
+                <LabelInputContainer className="mb-4">
+                  <Label htmlFor="fullname">Full name</Label>
+                  <Input
+                    id="fullname"
+                    placeholder="Manoj Bajpeyi"
+                    type="text"
+                    onChange={(val) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        name: val?.target?.value,
+                      }))
+                    }
+                  />
+                </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
                   <Label htmlFor="email">Email Address</Label>
                   <Input
                     id="email"
                     placeholder="projectmayhem@fc.com"
                     type="email"
+                    onChange={(val) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        email: val?.target?.value,
+                      }))
+                    }
+                  />
+                </LabelInputContainer>
+                <LabelInputContainer className="mb-4">
+                  <Label htmlFor="email">Phone Number</Label>
+                  <Input
+                    id="text"
+                    placeholder="1234567890"
+                    type="text"
+                    onChange={(val) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        phoneNo: val?.target?.value,
+                      }))
+                    }
                   />
                 </LabelInputContainer>
                 <LabelInputContainer className="mb-4">
@@ -114,16 +187,33 @@ function ContactUs() {
                     id="message"
                     placeholder="Write Your Message..."
                     type="text"
+                    onChange={(val) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        message: val?.target?.value,
+                      }))
+                    }
                   />
                 </LabelInputContainer>
 
-                <button
-                  className="group/btn relative block h-10 w-full rounded-md bg-gradient-to-br from-black to-neutral-600 font-medium text-white shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:bg-zinc-800 dark:from-zinc-900 dark:to-zinc-900 dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset]"
-                  type="submit"
-                >
-                  Sign up &rarr;
-                  <BottomGradient />
-                </button>
+                {loading ? (
+                  <button
+                    className="group/btn relative block h-10 w-full rounded-md bg-linear-to-br from-teal-500 to-sky-600 text-black font-semibold shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer text-lg"
+                    type="submit"
+                    disabled
+                  >
+                    Please Wait...
+                    <BottomGradient />
+                  </button>
+                ) : (
+                  <button
+                    className="group/btn relative block h-10 w-full rounded-md bg-linear-to-br from-teal-500 to-sky-600 text-black font-semibold shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_#27272a_inset,0px_-1px_0px_0px_#27272a_inset] cursor-pointer text-lg hover:bg-lime-600"
+                    type="submit"
+                  >
+                    Send Message &rarr;
+                    <BottomGradient />
+                  </button>
+                )}
               </form>
             </div>
           </div>

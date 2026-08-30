@@ -33,7 +33,10 @@ function WhoWeAre() {
 
   return (
     <>
-      <div className="mt-20 grid gap-10 grid-cols-1 lg:grid-cols-2 px-10">
+      <div
+        className="pt-20 grid gap-10 grid-cols-1 lg:grid-cols-2 px-10"
+        id="what-is-duootech"
+      >
         <section className="flex flex-col justify-center items-center gap-3 w-full lg:w-xl">
           <Heading2>
             What exactly is <span className="text-sky-500">DuooTech</span>?

@@ -16,7 +16,7 @@ function FeaturedWork() {
       img: Gym,
     },
     {
-      title: "Cafe Management System",
+      title: "Café Management System",
       desc: "Software to manage multiple outlets with multiple stuff, real-time monitoring, monthly report and fast billing process.",
       tags: "Real-time monitoring, Multiple outlet management, POS Billing, Auto report generation",
       img: Cafe,
@@ -37,7 +37,10 @@ function FeaturedWork() {
 
   return (
     <>
-      <div className="mt-20 py-20 px-10 bg-linear-to-br from-lime-500 to-lime-600">
+      <div
+        className="pt-20 py-20 px-10 bg-linear-to-br from-teal-500 to-sky-600"
+        id="our-products"
+      >
         <section>
           <h2 className="text-center font-sans text-4xl font-black leading-[1.05] tracking-tight">
             Our <span className="text-black">Products</span>

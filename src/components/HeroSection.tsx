@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Header from "./Header";
 import { fadeUp } from "@/lib/motion";
+import { Highlight } from "./ui/hero-highlight";
 
 function HeroSection() {
   const AVATARS = [
@@ -37,7 +38,7 @@ function HeroSection() {
 
         {/* glow behind the arc */}
         <div
-          className="pointer-events-none absolute left-1/2 top-[-150px] h-[320px] w-[900px] -translate-x-1/2 rounded-full blur-3xl opacity-[0.8]"
+          className="pointer-events-none absolute left-1/2 top-[-150px] h-[320px] w-[1000px] -translate-x-1/2 rounded-full blur-3xl opacity-[0.8]"
           style={{
             background:
               "radial-gradient(ellipse at center, rgba(56,189,248,0.35), rgba(56,189,248,0.08) 45%, transparent 95%)",
@@ -45,8 +46,8 @@ function HeroSection() {
         />
 
         {/* thin arc line (horizon) */}
-        <div
-          className="pointer-events-none absolute left-1/2 top-[410px] h-[1080px] w-[1300px] -translate-x-1/2 rounded-[90%]"
+        {/* <div
+          className="pointer-events-none absolute left-1/2 top-[410px] h-[1480px] w-[1800px] -translate-x-1/2 rounded-[90%]"
           style={{
             borderTop: "1.5px solid rgba(56,189,248,0.85)",
             boxShadow:
@@ -56,28 +57,38 @@ function HeroSection() {
             maskImage:
               "linear-gradient(to right, transparent 0%, black 42%, black 58%, transparent 100%)",
           }}
-        />
+        /> */}
 
         {/* giant faint watermark */}
-        <div
-          className="pointer-events-none absolute bottom-[-4%] left-1/2 w-full -translate-x-1/2 select-none whitespace-nowrap text-center font-black leading-none tracking-tight text-white/[0.045]"
+        <h1
+          className="pointer-events-none absolute bottom-[-1%] left-1/2 w-full -translate-x-1/2 select-none whitespace-nowrap text-center font-black leading-none tracking-tight bg-gradient-to-t from-white/[0.08] to-white/[0.01] bg-clip-text text-transparent"
           style={{ fontSize: "min(22vw, 320px)" }}
           aria-hidden="true"
         >
           {watermark}
-        </div>
+        </h1>
 
         {/* content */}
-        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-6 pt-24 text-center sm:px-10 lg:px-16">
+        <div className="relative z-10 mx-auto flex max-w-6xl flex-col items-center px-6 mt-[5rem] text-center sm:px-10 lg:px-16">
           <div className="flex max-w-6xl flex-col items-center mt-[6rem]">
             {/* headline */}
             <motion.h1
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              className="max-w-3xl font-sans text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
+              initial={{
+                opacity: 0,
+                y: 20,
+              }}
+              animate={{
+                opacity: 1,
+                y: [20, -5, 0],
+              }}
+              transition={{
+                duration: 0.5,
+                ease: [0.4, 0.0, 0.2, 1],
+              }}
+              className="max-w-6xl font-sans text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
             >
-              Your Idea. <br /> Our Infrastructure.
+              Your Startup's Vision. <br /> Our{" "}
+              <Highlight>Battle-Tested Infrastructure</Highlight>.
             </motion.h1>
 
             {/* subtext */}
@@ -88,34 +99,44 @@ function HeroSection() {
             </p>
 
             {/* social proof */}
-            <div className="mt-10 flex flex-col items-center gap-3 sm:flex-row sm:gap-4">
-              <div className="flex -space-x-3">
-                {AVATARS.map((a, i) => (
-                  <div
-                    key={i}
-                    className={`flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#0E0F13] text-[11px] font-semibold text-[#0E0F13] ${a.color}`}
-                  >
-                    {a.initials}
-                  </div>
-                ))}
-              </div>
-              <div className="flex flex-col items-center gap-0.5 sm:items-start">
-                <div className="flex gap-0.5 text-[#E8A25A]">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <svg
+            <div className="mt-10 flex flex-col items-center gap-10">
+              <section className="flex justify-center items-center gap-5">
+                <button className="text-2xl text-black font-semibold tracking-tight bg-sky-500 w-[13rem] py-3 rounded-lg cursor-pointer hover:translate-y-[-8px] transition duration-300">
+                  Our Products
+                </button>
+                <button className="text-2xl backdrop-blur-2xl border-2 w-[13rem] py-3 rounded-lg cursor-pointer hover:translate-y-[-8px] transition duration-300">
+                  Contact Us
+                </button>
+              </section>
+              <section className="flex justify-center items-center gap-5">
+                <div className="flex -space-x-3">
+                  {AVATARS.map((a, i) => (
+                    <div
                       key={i}
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      className="h-4 w-4"
+                      className={`flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#0E0F13] text-[11px] font-semibold text-[#0E0F13] ${a.color}`}
                     >
-                      <path d="M10 1.5l2.6 5.4 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L10 1.5z" />
-                    </svg>
+                      {a.initials}
+                    </div>
                   ))}
                 </div>
-                <p className="text-xs text-white/50">
-                  Trusted by 10+ businesses accross the India
-                </p>
-              </div>
+                <div className="flex flex-col items-center gap-0.5 sm:items-start">
+                  <div className="flex gap-0.5 text-[#E8A25A]">
+                    {Array.from({ length: 5 }).map((_, i) => (
+                      <svg
+                        key={i}
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="h-4 w-4"
+                      >
+                        <path d="M10 1.5l2.6 5.4 5.9.9-4.3 4.2 1 5.9-5.2-2.8-5.2 2.8 1-5.9-4.3-4.2 5.9-.9L10 1.5z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <p className="text-xs text-white/50">
+                    Trusted by 10+ businesses accross the India
+                  </p>
+                </div>
+              </section>
             </div>
           </div>
         </div>

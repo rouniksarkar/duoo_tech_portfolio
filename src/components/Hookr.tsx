@@ -8,7 +8,7 @@ import Subheading from "./Subheading";
 function Hookr() {
   return (
     <>
-      <div className="mt-20 py-20">
+      <div className="mt-20 py-20" id="hookr">
         {/* <section>
           <Heading2>
             We Built Our <br /> Infrastructure Too.

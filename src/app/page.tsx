@@ -2,6 +2,7 @@
 
 import ContactUs from "@/components/ContactUs";
 import FeaturedWork from "@/components/FeaturedWork";
+import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import Hookr from "@/components/Hookr";
@@ -13,7 +14,7 @@ import WhoWeAre from "@/components/WhoWeAre";
 const page = () => {
   return (
     <>
-      <div className="pb-10">
+      <div className="">
         <HeroSection />
         <div>
           <WhoWeAre />
@@ -23,6 +24,7 @@ const page = () => {
           <Technologies />
           <FeaturedWork />
           <ContactUs />
+          <Footer />
         </div>
       </div>
     </>
